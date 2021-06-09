@@ -1,17 +1,21 @@
 <?php
 
+
 namespace Rpererah\Mercadinho\Controller;
 
 
+use Alura\Cursos\Helper\RenderizaHtmlTraid;
 use Doctrine\ORM\EntityManagerInterface;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Rpererah\Mercadinho\Model\User;
+use Rpererah\Mercadinho\Helper\RenderHtmlTraid;
 
-class DeleteUser implements RequestHandlerInterface
+class FormInsert implements RequestHandlerInterface
 {
+    use RenderHtmlTraid;
+
     /**
      * @var EntityManagerInterface
      */
@@ -24,16 +28,7 @@ class DeleteUser implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $get=$request->getQueryParams();
-        $id=filter_var($get['id'],FILTER_VALIDATE_INT);
-        $resposta=new Response(302,['location'=>'/listar']);
-        if(is_null($id) || $id===false){
-            header('location:/listar');
-            return $resposta;
-        }
-        $usuario=$this->entityManager->getReference(User::class,$id);
-        $this->entityManager->remove($usuario);
-        $this->entityManager->flush();
-        return $resposta;
+        $html = $this->renderHtml('user/form.php', ['titulo' => 'Cadastrar Usuario']);
+        return new Response(200, [], $html);
     }
 }

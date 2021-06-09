@@ -14,30 +14,30 @@ class User
      */
     private int $id_user;
     /**
-     * @Column(type="boolean")
+     * @Column(type="boolean",options={"default":0})
      */
-    private bool $type_user;
+    private int $type_user;
     /**
      * @Column(type="string")
      */
     private string $name_user;
     /**
-     * @Column(type="string")
+     * @Column(type="string",unique=true)
      */
     private string $email_user;
     /**
-     * @Column(type="string")
+     * @Column(type="string",)
      */
     private string $password_user;
     /**
      * @Column(type="string")
      */
-    private string $photo_user;
+    private $photo_user;
 
     /**
-     * @return bool
+     * @return int
      */
-    public function isTypeUser(): bool
+    public function isTypeUser(): int
     {
         return $this->type_user;
     }
@@ -118,7 +118,7 @@ class User
     /**
      * @return string
      */
-    public function getPhotoUser(): string
+    public function getPhotoUser()
     {
         return $this->photo_user;
     }
@@ -126,7 +126,7 @@ class User
     /**
      * @param string $photo_user
      */
-    public function setPhotoUser(string $photo_user): void
+    public function setPhotoUser($photo_user): void
     {
         $this->photo_user = $photo_user;
     }
